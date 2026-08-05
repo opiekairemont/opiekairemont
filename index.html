@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Tumanowicz - Opieka Senioralna & Adaptacja Wnętrz Wrocław</title>
+    <style>
+        /* RESET I ZMIENNE GLOBALNE */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --primary-color: #1b365d;   /* Elegancki granat */
+            --secondary-color: #2b7a78; /* Spokojna morska zieleń */
+            --accent-color: #d97706;    /* Ciepły bursztyn */
+            --bg-light: #f8fafc;        /* Jasne tło */
+            --text-dark: #1e293b;       /* Ciemny tekst */
+            --text-muted: #64748b;      /* Szary tekst */
+            --card-bg: #ffffff;         /* Tło kart */
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* NAGŁÓWEK I NAWIGACJA */
+        header {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo p {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--secondary-color);
+        }
+
+        /* KONTENER GŁÓWNY */
+        main {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+        }
+
+        /* STRUKTURA PODSTRON */
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SEKCJE I KARTY */
+        .hero {
+            background-color: var(--card-bg);
+            border-left: 5px solid var(--secondary-color);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            padding: 0.8rem 1.8rem;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .cta-button:hover {
+            opacity: 0.9;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 1.8rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.25rem;
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .card ul {
+            list-style-type: none;
+            margin-top: 0.8rem;
+        }
+
+        .card ul li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .card ul li::before {
+            content: "•";
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .badge-container {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* OPINIE / REFERENCJE */
+        .testimonial {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.2rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stars {
+            color: var(--accent-color);
+        }
+
+        /* FORMULARZ I KONTAKT */
+        .contact-box {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.8rem;
+        }
+
+        /* STOPKA */
+        footer {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSYWNOŚĆ */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            nav ul {
+                width: 100%;
+                justify-content: space-between;
+            }
+            nav a {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.9rem;
+            }
+            .hero {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAGŁÓWEK Z MENU NAWIGACYJNYM -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>Daniel Tumanowicz</h1>
+                <p>Opieka Senioralna & Adaptacja Wnętrz | Wrocław</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Strona Główna</a></li>
+                    <li><a href="#" onclick="showPage('opieka')" id="nav-opieka">Opieka Seniora</a></li>
+                    <li><a href="#" onclick="showPage('remonty')" id="nav-remonty">Adaptacje & Remonty</a></li>
+                    <li><a href="#" onclick="showPage('o-mnie')" id="nav-o-mnie">O mnie & Referencje</a></li>
+                    <li><a href="#" onclick="showPage('kontakt')" id="nav-kontakt">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- KONTENER GŁÓWNY Z PODSTRONAMI -->
+    <main>
+
+        <!-- PODSTRONA 1: STRONA GŁÓWNA -->
+        <section id="page-home" class="page active">
+            <div class="hero">
+                <h2>Kompleksowe Wsparcie dla Seniora & Bezpieczny Dom</h2>
+                <p>Łączę wieloletnie doświadczenie opiekuńczo-pielęgnacyjne z praktycznymi umiejętnościami adaptacji wnętrz i napraw domowych. Zapewniam godne wsparcie oraz tworzę bezpieczną przestrzeń do życia.</p>
+                <a href="#" onclick="showPage('kontakt')" class="cta-button">Umów bezpłatną konsultację</a>
+            </div>
+
+            <div class="badge-container" style="justify-content: center; margin-bottom: 2rem;">
+                <span class="badge">100% Pozytywnych Opinie (5.0 / 5)</span>
+                <span class="badge">Doświadczenie w DPS / MOPS / OIOM</span>
+                <span class="badge">Własny Transport</span>
+                <span class="badge">Własny Park Narzędziowy</span>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3>1. Opieka Dochodząca</h3>
+                    <p>Pełny pakiet wsparcia w codziennym funkcjonowaniu, higienie oraz aktywizacji osób starszych i chorego w domu.</p>
+                    <ul>
+                        <li>Pielęgnacja i higiena osobista</li>
+                        <li>Podawanie leków i kontrola stanu zdrowia</li>
+                        <li>Zakupy, urzędy i wsparcie mobilne</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>2. Bezpieczny Dom Seniora</h3>
+                    <p>Adaptacja przestrzeni mieszkalnej do potrzeb ograniczonej mobilności oraz montaż zabezpieczeń.</p>
+                    <ul>
+                        <li>Montaż uchwytów i poręczy łazienkowych</li>
+                        <li>Likwidacja barier architektonicznych</li>
+                        <li>Naprawy domowe ("Złota Rączka")</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>3. Metamorfozy Wnętrz</h3>
+                    <p>Szybkie, czyste i estetyczne odświeżanie mieszkań, pokoi seniora oraz przestrzeni pod wynajem.</p>
+                    <ul>
+                        <li>Malowanie, szpachlowanie i gipsowanie</li>
+                        <li>Montaż mebli i wyposażenia</li>
+                        <li>Home Staging / Odświeżenie ścian</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PODSTRONA 2: OPIEKA SENIORA -->
+        <section id="page-opieka" class="page">
+            <div class="hero">
+                <h2>Opieka Senioralna & Wsparcie Dochodzące</h2>
+                <p>Zapewniam profesjonalną, empatyczną i pełną spokoju opiekę nad osobami starszymi, poszpitalnymi oraz z ograniczeniami ruchowymi lub demencją na terenie Wrocławia i okolic.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Pielęgnacja i Dzień Codzienny</h3>
+                    <ul>
+                        <li>Pomoc w czynnościach higienicznych i myciu</li>
+                        <li>Asekuracja i zmiana pieluchopieluchomajtek</li>
+                        <li>Przygotowywanie i podawanie posiłków</li>
+                        <li>Podawanie leków według zaleceń lekarza</li>
+                        <li>Troska o komfort psychiczny i rozmowa</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Asysta i Mobilność</h3>
+                    <ul>
+                        <li>Zakupy spożywcze i realizacja recept</li>
+                        <li>Wspólne wizyty u lekarzy i w placówkach</li>
+                        <li>Załatwianie spraw urzędowych i pocztowych</li>
+                        <li>Transport własnym, bezpiecznym samochodem</li>
+                        <li>Spacer i delikatna aktywizacja ruchowa</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Opieka Specjalistyczna</h3>
+                    <ul>
+                        <li>Doświadczenie w pracy z pacjentami po OIOM</li>
+                        <li>Wsparcie w stanach demencyjnych i Alzheimerze</li>
+                        <li>Opieka nad pacjentem leżącym</li>
+                        <li>Elastyczny czas pracy (godzinowy / dzienny)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PODSTRONA 3: ADAPTACJE I REMONTY -->
+        <section id="page-remonty" class="page">
+            <div class="hero">
+                <h2>Adaptacja Mieszkań & Odświeżanie Wnętrz</h2>
+                <p>Tworzę przyjazne, bezpieczne i estetyczne przestrzenie do życia. Łączę profesjonalny montaż zabezpieczeń dla seniorów z usługami remontowo-wykończeniowymi.</p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Adaptacja dla Seniora (Senior-Home)</h3>
+                    <ul>
+                        <li>Montaż certyfikowanych uchwytów w łazience i WC</li>
+                        <li>Instalacja poręczy i zabezpieczeń progowych</li>
+                        <li>Wymiana oświetlenia na jasne, bezpieczne LED</li>
+                        <li>Dostosowanie układu mebli pod wózek / chodzik</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Szybkie Metamorfozy (Home-Refresh)</h3>
+                    <ul>
+                        <li>Profesjonalne malowanie i gruntowanie ścian</li>
+                        <li>Szpachlowanie, gipsowanie i usuwanie ubytków</li>
+                        <li>Naprawy popękanych tynków</li>
+                        <li>Odświeżanie mieszkań przed wynajmem lub sprzedażą</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Prace Montażowe & Drobne Naprawy</h3>
+                    <ul>
+                        <li>Składanie mebli (IKEA i inne marki)</li>
+                        <li>Wieszanie obrazów, karniszy, półek i telewizorów</li>
+                        <li>Naprawa zamków, regulacja drzwi i okien</li>
+                        <li>Prace wykonywane własnym parkiem maszynowym</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PODSTRONA 4: O MNIE I REFERENCJE -->
+        <section id="page-o-mnie" class="page">
+            <div class="hero">
+                <h2>O Mnie</h2>
+                <p>Nazywam się Daniel Tumanowicz. Posiadam bogate i wszechstronne doświadczenie zawodowe — od pracy sanitariusza na OIOM-ie, przez instytucje opiekuńcze (DPS, MOPS, Stacje Opieki), aż po wykształcenie artystyczno-medialne oraz wieloletnie praktyczne umiejętności w zakresie aranżacji i wykańczania wnętrz.</p>
+                <p>W mojej pracy stawiam na <strong>spokój, cierpliwość, bezwzględną uczciwość oraz najwyższą kulturę osobistą</strong>.</p>
+            </div>
+
+            <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Potwierdzone Opinie i Referencje (Średnia 5.0 / 5)</h3>
+
+            <div class="testimonial">
+                <p class="testimonial-text">"Pan Daniel jest pełen ciepła człowiekiem - dużo rozmawia z mamą (83 lata). Pomocny w każdej czynności, miły, uprzejmy, spokojny. Bardzo dokładnie wykonujący swoje zadania. Na 100% polecam!"</p>
+                <div class="testimonial-author">
+                    <span>Katarzyna K. (OpiekaSeniora.pl)</span>
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p class="testimonial-text">"Pan Daniel to empatyczny, pełen ciepła, cierpliwy i łatwo nawiązujący kontakt z pacjentem opiekun. Doskonale wywiązywał się z opieki nad moim niełatwym bratem, wykazując przy tym wiele pomysłów, które w znaczący sposób ułatwiały pracę."</p>
+                <div class="testimonial-author">
+                    <span>Stanisław D. (OpiekaSeniora.pl)</span>
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p class="testimonial-text">"Solidny, punktualny, wywiązuje się z powierzonych obowiązków. Opiekował się moim tatem przez kilka miesięcy, przykładał się do pracy, nie mam uwag negatywnych, godny polecenia."</p>
+                <div class="testimonial-author">
+                    <span>Roman P. (OpiekaSeniora.pl)</span>
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+
+            <div class="testimonial">
+                <p class="testimonial-text">"Pan Daniel opiekował się moim mężem po długotrwałym pobycie w szpitalu. Jego podejście jest empatyczne i wzbudzające zaufanie. Zlecone czynności wykonywał należycie i wykazał się profesjonalizmem."</p>
+                <div class="testimonial-author">
+                    <span>Dorota B. (OpiekaSeniora.pl)</span>
+                    <span class="stars">★★★★★</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PODSTRONA 5: KONTAKT -->
+        <section id="page-kontakt" class="page">
+            <div class="contact-box">
+                <h2 style="color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">Skontaktuj się ze mną</h2>
+                
+                <div class="contact-info">
+                    <p><strong>Daniel Tumanowicz</strong></p>
+                    <p>📍 <strong>Lokalizacja:</strong> Wrocław i okolice (ul. Tenisowa 1, Wrocław)</p>
+                    <p>📞 <strong>Telefon:</strong> <a href="tel:789256593" style="color: var(--secondary-color); font-weight: bold; text-decoration: none;">789 256 593</a></p>
+                    <p>✉️ <strong>E-mail:</strong> <a href="mailto:daniel@tumanowicz.pl" style="color: var(--secondary-color); font-weight: bold; text-decoration: none;">daniel@tumanowicz.pl</a></p>
+                    <p>🚗 <strong>Transport:</strong> Własny (Prawo jazdy kat. B od 1983 r., bezwypadkowa jazda)</p>
+                </div>
+
+                <hr style="margin-bottom: 1.5rem; border: 0; border-top: 1px solid #e2e8f0;">
+
+                <p style="text-align: center; font-size: 0.95rem; color: var(--text-muted);">
+                    Zapraszam do kontaktu telefonicznego lub mailowego w celu omówienia zakresu opieki nad bliskim bądź zakresu prac adaptacyjnych i remontowych.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- STOPKA -->
+    <footer>
+        <p>&copy; 2026 Daniel Tumanowicz. Wszelkie prawa zastrzeżone.</p>
+        <p style="font-size: 0.8rem; color: #cbd5e1; margin-top: 0.3rem;">Usługi opiekuńcze i adaptacyjno-remontowe we Wrocławiu.</p>
+    </footer>
+
+    <!-- SKRYPT JAVASCRIPT DO PRZEŁĄCZANIA PODSTRON -->
+    <script>
+        function showPage(pageId) {
+            // Ukryj wszystkie podstrony
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Pokaż wybraną podstronę
+            const selectedPage = document.getElementById('page-' + pageId);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+            }
+
+            // Zmień aktywny przycisk w menu
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const activeLink = document.getElementById('nav-' + pageId);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Przewiń na górę strony
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
